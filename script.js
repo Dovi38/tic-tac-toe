@@ -14,7 +14,7 @@ console.log(board.length);
 
 //console.log((board[1] = "X"));
 //2.checks if all strings in a array is empty
-const checkEmptyStrings = (board, countX = 0, countO = 0) => {
+const signsCounter = (board, countX = 0, countO = 0) => {
   console.log(board);
   board.forEach((str) => {
     if (str !== "") {
@@ -29,7 +29,7 @@ const checkEmptyStrings = (board, countX = 0, countO = 0) => {
   console.log(countO);
   return board;
 };
-checkEmptyStrings(board, countX, countO);
+//signsCounter(board, countX, countO);
 //1.Start and play game
 const checksPreviousSign = (previousSign, board) => {
   let copyBoard = [...board];
@@ -38,16 +38,20 @@ const checksPreviousSign = (previousSign, board) => {
     if (el === "" && previousSign === "") {
       copyBoard[index] = sign_X;
       previousSign = sign_X;
+      signsCounter(copyBoard, countX, countO);
     } else if (el === "" && previousSign === "X") {
       copyBoard[index] = sign_O;
       previousSign = sign_O;
+      signsCounter(copyBoard, countX, countO);
     } else {
       copyBoard[index] = sign_X;
       previousSign = sign_X;
+      signsCounter(copyBoard, countX, countO);
     }
   });
   console.log(copyBoard);
-  return checkEmptyStrings(copyBoard);
+  //return signsCounter(copyBoard);
+  return copyBoard;
 };
 checksPreviousSign(previousSign, board);
 
