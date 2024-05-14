@@ -8,6 +8,8 @@ let countO = 0;
 let sign_X = "X";
 let sign_O = "O";
 let previousSign = "";
+let arr1 = [];
+let arr2 = [];
 //1.board array render  with 9 empty strings.
 const board = Array(size).fill("");
 console.log(board.length);
@@ -31,29 +33,35 @@ const signsCounter = (board, countX = 0, countO = 0) => {
 };
 //signsCounter(board, countX, countO);
 //1.Start and play game
-const checksPreviousSign = (previousSign, board) => {
+const checksPreviousSign = (previousSign, board, arr1, arr2) => {
   let copyBoard = [...board];
   console.log(copyBoard);
   copyBoard.forEach((el, index) => {
     if (el === "" && previousSign === "") {
       copyBoard[index] = sign_X;
       previousSign = sign_X;
+      arr1.push(index);
+
       signsCounter(copyBoard, countX, countO);
     } else if (el === "" && previousSign === "X") {
       copyBoard[index] = sign_O;
       previousSign = sign_O;
+      arr2.push(index);
       signsCounter(copyBoard, countX, countO);
     } else {
       copyBoard[index] = sign_X;
       previousSign = sign_X;
+      arr1.push(index);
       signsCounter(copyBoard, countX, countO);
     }
   });
+  console.log(arr1);
+  console.log(arr2);
   console.log(copyBoard);
   //return signsCounter(copyBoard);
   return copyBoard;
 };
-checksPreviousSign(previousSign, board);
+checksPreviousSign(previousSign, board, arr1, arr2);
 
 //Check if one of counter reaches 3
 const counterCheck = (countX, countO) => {
