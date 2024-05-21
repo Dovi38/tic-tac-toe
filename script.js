@@ -42,37 +42,45 @@ const checksPreviousSign = (previousSign, board, arr1, arr2) => {
       previousSign = sign_X;
       arr1.push(index);
 
-      signsCounter(copyBoard, countX, countO);
+      //signsCounter(copyBoard, countX, countO);
     } else if (el === "" && previousSign === "X") {
       copyBoard[index] = sign_O;
       previousSign = sign_O;
       arr2.push(index);
-      signsCounter(copyBoard, countX, countO);
+      //signsCounter(copyBoard, countX, countO);
     } else {
       copyBoard[index] = sign_X;
       previousSign = sign_X;
       arr1.push(index);
-      signsCounter(copyBoard, countX, countO);
+      //signsCounter(copyBoard, countX, countO);
     }
   });
   console.log(arr1);
   console.log(arr2);
   console.log(copyBoard);
   //return signsCounter(copyBoard);
-  return copyBoard;
+  return signsCounter(copyBoard);
 };
 checksPreviousSign(previousSign, board, arr1, arr2);
 
 //Check if one of counter reaches 3
-const counterCheck = (countX, countO) => {
-  if (countX === 3) {
+const counterCheck = (arr1, arr2) => {
+  console.log(arr1);
+  arr1.forEach((arr) => {
+    if (arr.length === 3) {
+      console.log(arr.length);
+    }
+    console.log(arr);
+  });
+  if (arr1.length === 3) {
     //iterate through array and compare indexes of array with array of arrays(wincombination)
     //function which calculates winCombination
-  } else if (countO === 3) {
+  } else {
+    arr2.length === 3;
     //function which calculates winCombination
   }
 };
-
+counterCheck(arr1, arr2);
 // const checksPreviousSign = (previousSign, board) => {
 //   const newBoard = board.slice(); // Create a copy
 
@@ -113,13 +121,22 @@ const winCombinations = [
 ];
 
 console.log(grid);
-
-const squareClicked = () => {
-  for (let i = 0; i <= board.length; i++) {
-    let click = board[i] !== "";
-  }
+//finds if result matches any combination
+const arr4 = [1, 2];
+const arr3 = [6, 7, 8];
+const checkCombinations = (arr3, winCombinations) => {
+  return winCombinations.some((combination) => {
+    console.log(combination);
+    return combination.every((index) => arr3.includes(index));
+  });
 };
-squareClicked();
+const isWin = checkCombinations(arr3, winCombinations);
+if (isWin) {
+  console.log(`combination is ${isWin}`);
+} else {
+  console.log("no win");
+}
+
 //let pattern = "";
 // for (let i = 1; i <= size; i++) {
 //   for (let j = 1; j <= 3; j++) {
