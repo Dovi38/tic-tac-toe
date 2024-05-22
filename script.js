@@ -1,4 +1,5 @@
 const gridElement = document.querySelector(".grid-container");
+
 const grid = document.querySelectorAll(".square");
 //board size for array
 let size = 9;
@@ -10,9 +11,40 @@ let sign_O = "O";
 let previousSign = "";
 let arr1 = [];
 let arr2 = [];
+
 //1.board array render  with 9 empty strings.
 const board = Array(size).fill("");
 console.log(board.length);
+const gameStart = () => {
+  countX = 0;
+  countO = 0;
+  previousSign = "";
+  arr1 = [];
+  arr2 = [];
+  console.log(board);
+};
+gameStart();
+
+const targetSquare = (e) => {
+  //let marked = [];
+  let square = e.target.id;
+  console.log(square);
+  arr1.push(square);
+  console.log(arr1);
+  console.log(typeof arr1[1]);
+  console.log(typeof arr1[7]);
+  return arr1;
+};
+
+grid.forEach((square) => {
+  square.addEventListener("click", targetSquare);
+});
+
+//const myId = e.target.id;
+
+//console.log(myId);
+
+//document.addEventListener("click", ourTarget);
 
 //console.log((board[1] = "X"));
 //2.checks if all strings in a array is empty
@@ -33,7 +65,7 @@ const signsCounter = (board, countX = 0, countO = 0) => {
 };
 //signsCounter(board, countX, countO);
 //1.Start and play game
-const checksPreviousSign = (previousSign, board, arr1, arr2) => {
+const fillTheBoard = (previousSign, board, arr1, arr2) => {
   let copyBoard = [...board];
   console.log(copyBoard);
   copyBoard.forEach((el, index) => {
@@ -41,6 +73,7 @@ const checksPreviousSign = (previousSign, board, arr1, arr2) => {
       copyBoard[index] = sign_X;
       previousSign = sign_X;
       arr1.push(index);
+      copyBoard[index].innerHTML = sign_X;
 
       //signsCounter(copyBoard, countX, countO);
     } else if (el === "" && previousSign === "X") {
@@ -61,7 +94,7 @@ const checksPreviousSign = (previousSign, board, arr1, arr2) => {
   //return signsCounter(copyBoard);
   return signsCounter(copyBoard);
 };
-checksPreviousSign(previousSign, board, arr1, arr2);
+fillTheBoard(previousSign, board, arr1, arr2);
 
 //Check if one of counter reaches 3
 const counterCheck = (arr1, arr2) => {
