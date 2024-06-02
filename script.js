@@ -11,6 +11,8 @@ let sign_O = "O";
 let previousSign = "";
 let arr1 = [];
 let arr2 = [];
+let player1 = [];
+let player2 = [];
 
 //1.board array render  with 9 empty strings.
 const board = Array(size).fill("");
@@ -24,27 +26,47 @@ const gameStart = () => {
   console.log(board);
 };
 gameStart();
+//after arr length gets 3 compare each arr with combinations.
+//reset arr after length got 3 and has been compared
+const targetedSquare = (e) => {
+  let square = e.target;
+  writeSign(square);
+  // let squareId = e.target.id;
+  // //console.log(squareId);
+  arr1.push(Number(square.id));
 
-const targetSquare = (e) => {
-  //let marked = [];
-  let square = e.target.id;
-  console.log(square);
-  arr1.push(square);
+  square.classList.add("activeSquare");
+
   console.log(arr1);
-  console.log(typeof arr1[1]);
-  console.log(typeof arr1[7]);
   return arr1;
 };
 
 grid.forEach((square) => {
-  square.addEventListener("click", targetSquare);
+  square.addEventListener("click", targetedSquare);
 });
-
-//const myId = e.target.id;
-
-//console.log(myId);
-
-//document.addEventListener("click", ourTarget);
+const writeSign = (item) => {
+  if (previousSign === "") {
+    item.textContent = sign_X;
+    previousSign = sign_X;
+    //player1.push(sign_X);
+    player1.push(item.id);
+    console.log(player1);
+    console.log(previousSign);
+    console.log(arr1);
+  } else if (previousSign === "X") {
+    item.textContent = sign_O;
+    console.log(previousSign);
+    previousSign = sign_O;
+    player2.push(item.id);
+    console.log(player2);
+  } else {
+    item.textContent = sign_X;
+    previousSign = sign_X;
+    player1.push(item.id);
+    console.log(player1);
+    console.log(previousSign);
+  }
+};
 
 //console.log((board[1] = "X"));
 //2.checks if all strings in a array is empty
@@ -65,40 +87,44 @@ const signsCounter = (board, countX = 0, countO = 0) => {
 };
 //signsCounter(board, countX, countO);
 //1.Start and play game
-const fillTheBoard = (previousSign, board, arr1, arr2) => {
-  let copyBoard = [...board];
-  console.log(copyBoard);
-  copyBoard.forEach((el, index) => {
-    if (el === "" && previousSign === "") {
-      copyBoard[index] = sign_X;
-      previousSign = sign_X;
-      arr1.push(index);
-      copyBoard[index].innerHTML = sign_X;
+// const fillTheBoard = () => {
+//   let copyBoard = [...board];
+//   console.log(copyBoard);
+//   copyBoard.forEach((el, index) => {
+//     if (el === "" && previousSign === "") {
+//       copyBoard[index] = sign_X;
+//       previousSign = sign_X;
+//       player1.push(index);
+//       //signsCounter(copyBoard, countX, countO);
+//     } else if (el === "" && previousSign === "X") {
+//       copyBoard[index] = sign_O;
+//       previousSign = sign_O;
+//       player2.push(index);
+//       //signsCounter(copyBoard, countX, countO);
+//     } else {
+//       copyBoard[index] = sign_X;
+//       previousSign = sign_X;
+//       player1.push(index);
+//       //signsCounter(copyBoard, countX, countO);
+//     }
+//   });
+//   console.log(player1);
+//   console.log(player2);
+//   console.log(copyBoard);
+//   //return signsCounter(copyBoard);
+//   return signsCounter(copyBoard);
+// };
+// grid.forEach((item) => {
+//   item.addEventListener("click", fillTheBoard);
+// });
 
-      //signsCounter(copyBoard, countX, countO);
-    } else if (el === "" && previousSign === "X") {
-      copyBoard[index] = sign_O;
-      previousSign = sign_O;
-      arr2.push(index);
-      //signsCounter(copyBoard, countX, countO);
-    } else {
-      copyBoard[index] = sign_X;
-      previousSign = sign_X;
-      arr1.push(index);
-      //signsCounter(copyBoard, countX, countO);
-    }
-  });
-  console.log(arr1);
-  console.log(arr2);
-  console.log(copyBoard);
-  //return signsCounter(copyBoard);
-  return signsCounter(copyBoard);
-};
-fillTheBoard(previousSign, board, arr1, arr2);
-
-//Check if one of counter reaches 3
+//fillTheBoard(previousSign, board, arr1, arr2);
+// grid.forEach((item) => {
+//   item.addEventListener("click", fillTheBoard);
+// });
+//Check if one of counter reaches 3.Not working
 const counterCheck = (arr1, arr2) => {
-  console.log(arr1);
+  //console.log(arr1);
   arr1.forEach((arr) => {
     if (arr.length === 3) {
       console.log(arr.length);
@@ -153,7 +179,7 @@ const winCombinations = [
   [2, 4, 6],
 ];
 
-console.log(grid);
+//console.log(grid);
 //finds if result matches any combination
 const arr4 = [1, 2];
 const arr3 = [6, 7, 8];
