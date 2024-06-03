@@ -28,47 +28,43 @@ const gameStart = () => {
 gameStart();
 //after arr length gets 3 compare each arr with combinations.
 //reset arr after length got 3 and has been compared
+// let squareId = e.target.id;
+// //console.log(squareId);
+//arr1.push(Number(square.id));
 const targetedSquare = (e) => {
   let square = e.target;
-  writeSign(square);
-  // let squareId = e.target.id;
-  // //console.log(squareId);
-  arr1.push(Number(square.id));
-
   square.classList.add("activeSquare");
-
-  console.log(arr1);
-  return arr1;
+  //console.log("arr1", arr1);
+  return writeSign(square);
 };
 
 grid.forEach((square) => {
   square.addEventListener("click", targetedSquare);
 });
+
 const writeSign = (item) => {
   if (previousSign === "") {
     item.textContent = sign_X;
     previousSign = sign_X;
-    //player1.push(sign_X);
     player1.push(item.id);
-    console.log(player1);
-    console.log(previousSign);
-    console.log(arr1);
+    board[item.id] = sign_X;
   } else if (previousSign === "X") {
     item.textContent = sign_O;
-    console.log(previousSign);
     previousSign = sign_O;
     player2.push(item.id);
-    console.log(player2);
+    board[item.id] = sign_O;
   } else {
     item.textContent = sign_X;
     previousSign = sign_X;
     player1.push(item.id);
-    console.log(player1);
-    console.log(previousSign);
+    board[item.id] = sign_X;
   }
+
+  console.log(board);
+  console.log("X", player1);
+  console.log("O", player2);
 };
 
-//console.log((board[1] = "X"));
 //2.checks if all strings in a array is empty
 const signsCounter = (board, countX = 0, countO = 0) => {
   console.log(board);
@@ -123,23 +119,7 @@ const signsCounter = (board, countX = 0, countO = 0) => {
 //   item.addEventListener("click", fillTheBoard);
 // });
 //Check if one of counter reaches 3.Not working
-const counterCheck = (arr1, arr2) => {
-  //console.log(arr1);
-  arr1.forEach((arr) => {
-    if (arr.length === 3) {
-      console.log(arr.length);
-    }
-    console.log(arr);
-  });
-  if (arr1.length === 3) {
-    //iterate through array and compare indexes of array with array of arrays(wincombination)
-    //function which calculates winCombination
-  } else {
-    arr2.length === 3;
-    //function which calculates winCombination
-  }
-};
-counterCheck(arr1, arr2);
+
 // const checksPreviousSign = (previousSign, board) => {
 //   const newBoard = board.slice(); // Create a copy
 
@@ -179,23 +159,28 @@ const winCombinations = [
   [2, 4, 6],
 ];
 
-//console.log(grid);
 //finds if result matches any combination
 const arr4 = [1, 2];
-const arr3 = [6, 7, 8];
-const checkCombinations = (arr3, winCombinations) => {
+const arr3 = [0, 4, 2, 8, 6];
+const checkCombinations = (arr3) => {
   return winCombinations.some((combination) => {
     console.log(combination);
     return combination.every((index) => arr3.includes(index));
   });
 };
-const isWin = checkCombinations(arr3, winCombinations);
+const isWin = checkCombinations(arr3);
 if (isWin) {
   console.log(`combination is ${isWin}`);
 } else {
   console.log("no win");
 }
+const checkingBoard = board.some((el) => el === "");
 
+if (checkingBoard) {
+  console.log("not yet filled");
+} else {
+  ("filled everything");
+}
 //let pattern = "";
 // for (let i = 1; i <= size; i++) {
 //   for (let j = 1; j <= 3; j++) {
