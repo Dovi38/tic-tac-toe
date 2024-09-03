@@ -12,12 +12,20 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #333D79FF;
 }
 
 .outline {
-  margin: 2rem 0.5rem 2rem 1rem;
+  margin: 1rem 0.5rem 0.2rem 0.5rem;
   font-size: 4rem;
   font-family: Poppins, sans-serif;
+  color: #FAEBEFFF;
+}
+
+.message {
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  color: #FAEBEFFF;
 }
 
 .grid-container {
@@ -27,49 +35,92 @@ body {
   gap: 5px;
   justify-content: center;
   align-content: center;
+
 }
 
 .square {
-  border: 2px solid red;
+  border: 2px solid #FFD700FF;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   border-radius: 6px;
+  background-color: #FAEBEFFF;
+}
+
+.square:hover {
+  background-color: #FFFFF0FF;
 }
 
 .activeSquare {
-  color: rgb(0, 90, 150);
+  color: #333D79FF;
   font-size: 6rem;
   font-family: Montserrat, sans-serif;
   font-weight: 600;
-  background-color: lightskyblue;
 }
 
-
 .players,
-.buttons {
+.buttons,
+#nameX,
+#nameO {
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   margin-top: 1rem;
 }
 
+#nameX,
+#nameO {
+  border: 2px solid #FFD700FF;
+  background-color: #FFFFF0FF;
+  color: #333D79FF;
+  border-radius: 9px;
+  font-size: 1rem;
+  padding: 0.5rem;
+  width: 170px
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.number {
+  width: 70px;
+}
+
 button {
-  border: 2px solid grey;
+  border: 2px solid #FFD700FF;
   border-radius: 10px;
   outline: none;
-  background-color: white;
+  background-color: #FFFFF0FF;
+  color: #333D79FF;
   font-size: 1.5rem;
   font-weight: 500;
   font-family: Montserrat, sans-serif;
   padding: 0.5rem;
+
+}
+
+.reset {
   width: 150px;
 }
 
-button:hover {
-  background-color: rgb(199, 199, 202);
+.reset:hover,
+.newName:hover {
+  background-color: #FAEBEFFF;
   width: 155px;
   transition: ease-in(size, 3s, ease-in-out)
+}
+
+.disabled {
+  pointer-events: none;
+  /* opacity: 0.5; */
+}
+
+.winWin {
+  background-color: #FFD700FF;
+
 }
