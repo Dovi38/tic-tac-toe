@@ -13,17 +13,20 @@
     <div>
       <h1 class="outline">Tic-Tac-Toe</h1>
     </div>
+    <div>
+      <h2 class="message"></h2>
+    </div>
   </header>
 
   <main>
     <div class="players">
-      <div>
-        <button>Player_X</button>
-        <button class="playerX">0</button>
+      <div class="board">
+        <input id="nameX" type="text" placeholder="Player_X">
+        <button class="playerX number">0</button>
       </div>
-      <div>
-        <button>Player_O</button>
-        <button class="playerO">0</button>
+      <div class="board">
+        <input id="nameO" type="text" placeholder="Player_O">
+        <button class="playerO number">0</button>
       </div>
     </div>
     <div class="grid-container">
@@ -38,7 +41,8 @@
       <div id="8" class="square"></div>
     </div>
     <div class="buttons">
-      <button class="reset">Reset</button>
+      <button class="reset">Start</button>
+      <button class="newName">New name</button>
     </div>
   </main>
   <!-- <script src="script.js"></script> -->
