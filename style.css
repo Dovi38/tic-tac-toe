@@ -19,7 +19,8 @@ body {
   margin: 1rem 0.5rem 0.2rem 0.5rem;
   font-size: 4rem;
   font-family: Poppins, sans-serif;
-  color: #FAEBEFFF;
+  /* color: #FAEBEFFF; */
+  color: #FFD700FF;
 }
 
 .message {
@@ -45,11 +46,11 @@ body {
   align-items: center;
   cursor: pointer;
   border-radius: 6px;
-  background-color: #FAEBEFFF;
+  background-color: #FFFFF0FF;
 }
 
 .square:hover {
-  background-color: #FFFFF0FF;
+  background-color: #FAEBEFFF;
 }
 
 .activeSquare {
@@ -59,14 +60,15 @@ body {
   font-weight: 600;
 }
 
-.players,
-.buttons,
 #nameX,
-#nameO {
+#nameO,
+.players,
+.buttons {
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 0.5rem;
   margin-top: 1rem;
+  outline: none;
 }
 
 #nameX,
@@ -104,11 +106,11 @@ button {
 
 }
 
-.reset {
+.start {
   width: 150px;
 }
 
-.reset:hover,
+.start:hover,
 .newName:hover {
   background-color: #FAEBEFFF;
   width: 155px;
