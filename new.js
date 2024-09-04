@@ -1,13 +1,11 @@
 const startGame = document.querySelector(".start");
-const resetGame = document.querySelector(".reset");
+const newName = document.querySelector(".newName");
 const grid = document.querySelectorAll(".square");
-const gridElement = document.querySelector(".grid-container");
 const playerX = document.querySelector(".playerX");
 const playerO = document.querySelector(".playerO");
 const message = document.querySelector(".message");
 const playerNameX = document.querySelector("#nameX");
 const playerNameO = document.querySelector("#nameO");
-const newName = document.querySelector(".newName");
 
 const winCombinations = [
   [0, 1, 2],
@@ -26,49 +24,45 @@ let sign_O = "O";
 let previousSign = "";
 
 const board = Array(size).fill("");
-//console.log(board);
 
 const gameBoard = {
   boards: [],
 };
-//console.log(gameBoard.boards);
-const player11 = {
+
+const player1 = {
   score: 0,
   sign: "X",
   arrMoves: [],
 };
 
-const player22 = {
+const player2 = {
   score: 0,
   sign: "O",
   arrMoves: [],
 };
 
-//Click control on gameBoard
+//controls signs on gameBoard
 const addSign = (square) => {
   if (!previousSign) {
     square.textContent = sign_X;
     previousSign = sign_X;
-    player11.arrMoves.push(Number(square.id));
+    player1.arrMoves.push(Number(square.id));
   } else if (previousSign === "X") {
     square.textContent = sign_O;
     previousSign = sign_O;
-    player22.arrMoves.push(Number(square.id));
-    console.log("player-O", player22.arrMoves);
+    player2.arrMoves.push(Number(square.id));
   } else {
     square.textContent = sign_X;
     previousSign = sign_X;
-    player11.arrMoves.push(Number(square.id));
-    console.log("player-X", player11.arrMoves);
+    player1.arrMoves.push(Number(square.id));
   }
-  console.log(player11.arrMoves.sort());
-  console.log(player22.arrMoves.sort());
+  player1.arrMoves.sort();
+  player2.arrMoves.sort();
   checkCombinations();
 };
+//enables to click on squares and restricts double clicking
 const clickHandler = (square) => {
-  //console.log(square);
   gameBoard.boards.push(Number(square.id));
-  console.log(gameBoard.boards);
   square.removeEventListener("click", clickedElement);
 };
 
@@ -77,6 +71,7 @@ const clickedElement = (e) => {
   e.target.classList.add("activeSquare");
   addSign(e.target);
 };
+
 const removeClass = () => {
   grid.forEach((item) => {
     item.classList.remove("activeSquare");
@@ -89,77 +84,66 @@ const attachClickHandler = () => {
     elem.addEventListener("click", clickedElement);
   });
 };
-
-const resetButton = () => {
+//resets game and score display
+const resetVariables = () => {
   removeDisableClass();
   gameBoard.boards.length = [];
-  player11.arrMoves = [];
-  player22.arrMoves = [];
+  player1.arrMoves = [];
+  player2.arrMoves = [];
   previousSign = "";
   removeClass();
 };
 const resetMessageScore = () => {
   message.textContent = "";
-  playerX.textContent = player11.score;
-  playerO.textContent = player22.score;
+  playerX.textContent = player1.score;
+  playerO.textContent = player2.score;
 };
-// Initial attachment of click handlers
 
-resetGame.addEventListener("click", () => {
-  resetButton();
+//game start
+startGame.addEventListener("click", () => {
+  resetVariables();
   attachClickHandler();
   removeBackground();
   resetMessageScore();
 });
 
+//prints message who wan after 3 rounds
 const gameEnd = () => {
-  if (player11.score === 3) {
-    message.textContent = `${playerNameX.value} Won`.toUpperCase();
-    player11.score = 0;
+  if (player1.score === 3) {
+    message.textContent = `${playerNameX.value} won`.toUpperCase();
+    player1.score = 0;
   }
-  if (player22.score === 3) {
-    message.textContent = `${playerNameO.value} Won`.toUpperCase();
-    player22.score = 0;
+  if (player2.score === 3) {
+    message.textContent = `${playerNameO.value} won`.toUpperCase();
+    player2.score = 0;
   }
-  if ((player11.score === 3) & (player22.score === 3)) {
-    message.textContent = "Tie".toUpperCase();
+  if ((player1.score === 3) & (player2.score === 3)) {
+    message.textContent = "tie".toUpperCase();
   }
-};
-const inputNameReset = () => {
-  playerNameX.value = "";
-  playerNameO.value = "";
-};
-newName.addEventListener("click", inputNameReset);
-const checkCombinations = () => {
-  console.log(player11);
-  console.log(player22);
-  if (player11.arrMoves.length >= 3) {
-    console.log(player11.arrMoves);
-    console.log("X has 3 values");
-    if (loopCombination(player11.arrMoves)) {
-      console.log("X has a winning combination");
-      player11.score++;
-      playerX.textContent = player11.score;
-      gameEnd();
-      disableClick();
-      return;
-    }
-  }
-  if (player22.arrMoves.length >= 3) {
-    console.log(player22.arrMoves);
-    console.log("O has 3 values");
-    if (loopCombination(player22.arrMoves)) {
-      console.log("O has a winning combination");
-      player22.score++;
-      playerO.textContent = player22.score;
-      gameEnd();
-      disableClick();
-      return;
-    }
-  }
-  console.log("no winning combination found tie");
 };
 
+//Checking if combinations match result
+const checkCombinations = () => {
+  if (player1.arrMoves.length >= 3) {
+    if (loopCombination(player1.arrMoves)) {
+      player1.score++;
+      playerX.textContent = player1.score;
+      gameEnd();
+      disableClick();
+      return;
+    }
+  }
+  if (player2.arrMoves.length >= 3) {
+    if (loopCombination(player2.arrMoves)) {
+      player2.score++;
+      playerO.textContent = player2.score;
+      gameEnd();
+      disableClick();
+      return;
+    }
+  }
+};
+//returns true if match combination and highlights
 const loopCombination = (move) => {
   return winCombinations.some((combination) => {
     if (combination.every((index) => move.includes(index))) {
@@ -169,15 +153,18 @@ const loopCombination = (move) => {
     return false;
   });
 };
+//highlight the match function
 const highlightCombination = (combination) => {
   combination.forEach((index) => {
     document.getElementById(index.toString()).classList.add("winWin");
   });
 };
+//resets highlighted background and restricts clicking
 const removeBackground = () => {
   grid.forEach((index) => index.classList.remove("winWin"));
 };
 checkCombinations();
+
 const disableClick = () => {
   grid.forEach((square) => {
     square.classList.add("disabled");
@@ -188,3 +175,10 @@ const removeDisableClass = () => {
     square.classList.remove("disabled");
   });
 };
+//resets inputs
+const inputNameReset = () => {
+  playerNameX.value = "";
+  playerNameO.value = "";
+};
+
+newName.addEventListener("click", inputNameReset);
